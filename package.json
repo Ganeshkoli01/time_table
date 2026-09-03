@@ -1,0 +1,26 @@
+{
+  "name": "placement-preparation-tracker",
+  "version": "1.0.0",
+  "description": "Daily Placement Preparation Task Tracker Web App",
+  "main": "api/index.js",
+  "scripts": {
+    "build": "cd client && npm install && npm run build",
+    "vercel-build": "cd client && npm install && npm run build",
+    "start": "node server/index.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "date-fns": "^4.1.0",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "mongoose": "^8.9.5"
+  },
+  "keywords": [
+    "placement",
+    "tracker",
+    "timetable",
+    "study-planner"
+  ],
+  "author": "",
+  "license": "ISC"
+}
