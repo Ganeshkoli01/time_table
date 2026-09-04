@@ -28,13 +28,18 @@ const connectDB = async () => {
     console.log('MongoDB connected successfully');
   } catch (err) {
     console.error('MongoDB connection error:', err.message);
+    throw err;
   }
 };
 
 // Ensure DB is connected before handling requests
 app.use(async (req, res, next) => {
-  await connectDB();
-  next();
+  try {
+    await connectDB();
+    next();
+  } catch (err) {
+    res.status(503).json({ error: 'Service Unavailable: Database connection failed. Please ensure MongoDB is running.' });
+  }
 });
 
 // Routes
