@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
-import { Home, Calendar, BarChart2, History, Flame, Settings, Sparkles } from 'lucide-react';
+import { Home, Calendar, BarChart2, History, Flame, Settings, Sparkles, Clock } from 'lucide-react';
 import clsx from 'clsx';
 import api from '../utils/api';
 
@@ -10,13 +10,20 @@ interface NavigationProps {
 
 const Navigation: React.FC<NavigationProps> = ({ mobile }) => {
   const [currentStreak, setCurrentStreak] = useState(0);
+  const [time, setTime] = useState(new Date());
 
   useEffect(() => {
     fetchStreak();
 
     const handleUpdate = () => fetchStreak();
     window.addEventListener('streakUpdated', handleUpdate);
-    return () => window.removeEventListener('streakUpdated', handleUpdate);
+    
+    const timer = setInterval(() => setTime(new Date()), 1000);
+
+    return () => {
+      window.removeEventListener('streakUpdated', handleUpdate);
+      clearInterval(timer);
+    };
   }, []);
 
   const fetchStreak = async () => {
@@ -99,17 +106,29 @@ const Navigation: React.FC<NavigationProps> = ({ mobile }) => {
         ))}
       </div>
 
-      {/* Daily Streak Widget in Sidebar */}
-      <div className="mt-auto p-4 bg-gradient-to-br from-amber-50 to-orange-50 rounded-2xl border border-orange-200">
-        <div className="flex items-center justify-between mb-1.5">
-          <span className="text-xs font-bold text-slate-700">Daily Streak</span>
-          <span className="text-xs font-black text-orange-600 flex items-center gap-1">
-            🔥 {currentStreak} {currentStreak === 1 ? 'Day' : 'Days'}
-          </span>
+      <div className="mt-auto flex flex-col gap-3">
+        {/* Daily Streak Widget in Sidebar */}
+        <div className="p-4 bg-gradient-to-br from-amber-50 to-orange-50 rounded-2xl border border-orange-200">
+          <div className="flex items-center justify-between mb-1.5">
+            <span className="text-xs font-bold text-slate-700">Daily Streak</span>
+            <span className="text-xs font-black text-orange-600 flex items-center gap-1">
+              🔥 {currentStreak} {currentStreak === 1 ? 'Day' : 'Days'}
+            </span>
+          </div>
+          <p className="text-[10px] text-slate-500 font-medium">
+            Maintain &gt;= 70% daily completion to grow your streak!
+          </p>
         </div>
-        <p className="text-[10px] text-slate-500 font-medium">
-          Maintain &gt;= 70% daily completion to grow your streak!
-        </p>
+
+        {/* 24-Hour Clock */}
+        <div className="p-4 bg-slate-50 rounded-2xl border border-slate-200 flex flex-col items-center justify-center">
+           <span className="text-xs font-bold text-slate-500 mb-1 flex items-center gap-1">
+             <Clock size={14} /> Local Time
+           </span>
+           <span className="text-xl font-black text-slate-800 tracking-wider font-mono">
+             {time.toLocaleTimeString('en-US', { hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' })}
+           </span>
+        </div>
       </div>
     </nav>
   );
