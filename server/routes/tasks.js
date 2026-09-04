@@ -53,10 +53,14 @@ router.get('/missed', async (req, res) => {
     const todayStr = format(new Date(), 'yyyy-MM-dd');
     const currentTimeStr = format(new Date(), 'HH:mm');
 
-    // Find all incomplete tasks
+    const { subDays } = require('date-fns');
+    const threeDaysAgoStr = format(subDays(new Date(), 3), 'yyyy-MM-dd');
+
+    // Find all incomplete tasks from the last 3 days up to today
     const incompleteTasks = await Task.find({
       userId,
-      completed: false
+      completed: false,
+      date: { $gte: threeDaysAgoStr }
     }).sort({ date: -1, startTime: 1 });
 
     const missed = incompleteTasks.filter(t => {
