@@ -2,13 +2,14 @@ const express = require('express');
 const router = express.Router();
 const Task = require('../models/Task');
 const TimetableTemplate = require('../models/TimetableTemplate');
+const auth = require('../middleware/auth');
 const { format, parseISO, getDay } = require('date-fns');
 
 const daysMap = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
 // GET /api/tasks/templates
 // Fetches all 7 timetable templates for full weekly view
-router.get('/templates', async (req, res) => {
+router.get('/templates', auth, async (req, res) => {
   try {
     const templates = await TimetableTemplate.find({});
     // Order by Monday to Sunday
@@ -23,7 +24,7 @@ router.get('/templates', async (req, res) => {
 
 // PUT /api/tasks/templates/:day
 // Updates the timetable template for a specific day
-router.put('/templates/:day', async (req, res) => {
+router.put('/templates/:day', auth, async (req, res) => {
   try {
     const { day } = req.params;
     const { tasks } = req.body;
@@ -47,9 +48,9 @@ router.put('/templates/:day', async (req, res) => {
 
 // GET /api/tasks/missed
 // Fetches missed tasks (tasks that were scheduled before today or earlier today and not completed)
-router.get('/missed', async (req, res) => {
+router.get('/missed', auth, async (req, res) => {
   try {
-    const userId = 'demo-user';
+    const userId = req.user.id;
     const todayStr = format(new Date(), 'yyyy-MM-dd');
     const currentTimeStr = format(new Date(), 'HH:mm');
 
@@ -78,9 +79,9 @@ router.get('/missed', async (req, res) => {
 
 // GET /api/tasks/export
 // Exports all user tasks as JSON
-router.get('/export', async (req, res) => {
+router.get('/export', auth, async (req, res) => {
   try {
-    const userId = 'demo-user';
+    const userId = req.user.id;
     const tasks = await Task.find({ userId });
     res.setHeader('Content-Type', 'application/json');
     res.setHeader('Content-Disposition', 'attachment; filename=placement_tracker_backup.json');
@@ -93,9 +94,9 @@ router.get('/export', async (req, res) => {
 
 // POST /api/tasks/import
 // Imports tasks from backup JSON array
-router.post('/import', async (req, res) => {
+router.post('/import', auth, async (req, res) => {
   try {
-    const userId = 'demo-user';
+    const userId = req.user.id;
     const tasks = req.body;
     if (!Array.isArray(tasks)) {
       return res.status(400).json({ error: 'Expected an array of tasks' });
@@ -120,10 +121,10 @@ router.post('/import', async (req, res) => {
 
 // GET /api/tasks/:date
 // Fetches tasks for a specific date (YYYY-MM-DD). If none exist, generates from template.
-router.get('/:date', async (req, res) => {
+router.get('/:date', auth, async (req, res) => {
   try {
     const { date } = req.params;
-    const userId = 'demo-user';
+    const userId = req.user.id;
     
     let tasks = await Task.find({ userId, date }).sort({ startTime: 1 });
     
@@ -165,7 +166,7 @@ router.get('/:date', async (req, res) => {
 
 // POST /api/tasks/:id/complete
 // Toggles the completion status of a task
-router.post('/:id/complete', async (req, res) => {
+router.post('/:id/complete', auth, async (req, res) => {
   try {
     const task = await Task.findById(req.params.id);
     if (!task) return res.status(404).json({ error: 'Task not found' });
@@ -183,10 +184,10 @@ router.post('/:id/complete', async (req, res) => {
 
 // POST /api/tasks
 // Add a custom task
-router.post('/', async (req, res) => {
+router.post('/', auth, async (req, res) => {
   try {
     const { date, day, taskName, subject, startTime, endTime, description, notes } = req.body;
-    const userId = 'demo-user';
+    const userId = req.user.id;
     const taskId = `custom-${Date.now()}`;
     
     const newTask = new Task({
@@ -213,7 +214,7 @@ router.post('/', async (req, res) => {
 
 // PUT /api/tasks/:id
 // Update task details (notes, whatLearned, problemsFaced, timeSpent, description, etc.)
-router.put('/:id', async (req, res) => {
+router.put('/:id', auth, async (req, res) => {
   try {
     const { 
       notes, 
@@ -252,7 +253,7 @@ router.put('/:id', async (req, res) => {
 
 // DELETE /api/tasks/:id
 // Delete a custom task
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', auth, async (req, res) => {
   try {
     const task = await Task.findById(req.params.id);
     if (!task) return res.status(404).json({ error: 'Task not found' });

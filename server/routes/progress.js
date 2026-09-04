@@ -1,13 +1,15 @@
 const express = require('express');
 const router = express.Router();
 const Task = require('../models/Task');
+const auth = require('../middleware/auth');
 const { format, subDays, parseISO, differenceInCalendarDays } = require('date-fns');
 
 // GET /api/progress/weekly
+// GET /api/progress/weekly
 // Returns progress for main subjects for the current week
-router.get('/weekly', async (req, res) => {
+router.get('/weekly', auth, async (req, res) => {
   try {
-    const userId = 'demo-user';
+    const userId = req.user.id;
     const { startDate, endDate } = req.query; // YYYY-MM-DD
     
     // Find tasks in this date range
@@ -97,10 +99,11 @@ router.get('/weekly', async (req, res) => {
 });
 
 // GET /api/progress/history
+// GET /api/progress/history
 // Returns daily completion percentage for calendar
-router.get('/history', async (req, res) => {
+router.get('/history', auth, async (req, res) => {
   try {
-    const userId = 'demo-user';
+    const userId = req.user.id;
     const tasks = await Task.find({ userId });
     
     const history = {};
@@ -134,10 +137,11 @@ router.get('/history', async (req, res) => {
 });
 
 // GET /api/progress/streak
+// GET /api/progress/streak
 // Calculates streak: If user completes at least 70% of day's tasks, counts as successful
-router.get('/streak', async (req, res) => {
+router.get('/streak', auth, async (req, res) => {
   try {
-    const userId = 'demo-user';
+    const userId = req.user.id;
     const tasks = await Task.find({ userId });
 
     const dayMap = {};

@@ -2,6 +2,8 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const bcrypt = require('bcryptjs');
+const User = require('./models/User');
 
 const taskRoutes = require('./routes/tasks');
 const progressRoutes = require('./routes/progress');
@@ -26,6 +28,25 @@ const connectDB = async () => {
     const db = await mongoose.connect(uri);
     isConnected = db.connections[0].readyState >= 1;
     console.log('MongoDB connected successfully');
+    
+    // Seed Admin User
+    try {
+      const adminEmail = 'ganeshkoli80.9527@gmail.com';
+      const adminExists = await User.findOne({ email: adminEmail });
+      if (!adminExists) {
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash('123456789', salt);
+        await User.create({
+          name: 'gkoli',
+          email: adminEmail,
+          password: hashedPassword,
+          role: 'admin'
+        });
+        console.log('Admin user seeded successfully');
+      }
+    } catch (seedErr) {
+      console.error('Error seeding admin user:', seedErr.message);
+    }
   } catch (err) {
     console.error('MongoDB connection error:', err.message);
     throw err;
@@ -43,6 +64,10 @@ app.use(async (req, res, next) => {
 });
 
 // Routes
+const authRoutes = require('./routes/auth');
+const adminRoutes = require('./routes/admin');
+app.use('/api/auth', authRoutes);
+app.use('/api/admin', adminRoutes);
 app.use('/api/tasks', taskRoutes);
 app.use('/api/progress', progressRoutes);
 
