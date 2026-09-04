@@ -21,6 +21,30 @@ router.get('/templates', async (req, res) => {
   }
 });
 
+// PUT /api/tasks/templates/:day
+// Updates the timetable template for a specific day
+router.put('/templates/:day', async (req, res) => {
+  try {
+    const { day } = req.params;
+    const { tasks } = req.body;
+
+    if (!Array.isArray(tasks)) {
+      return res.status(400).json({ error: 'Tasks array is required' });
+    }
+
+    const template = await TimetableTemplate.findOneAndUpdate(
+      { day },
+      { tasks },
+      { new: true, upsert: true } // Upsert just in case it doesn't exist
+    );
+
+    res.json(template);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Server Error' });
+  }
+});
+
 // GET /api/tasks/missed
 // Fetches missed tasks (tasks that were scheduled before today or earlier today and not completed)
 router.get('/missed', async (req, res) => {

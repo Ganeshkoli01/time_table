@@ -1,21 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Calendar, Clock, BookOpen, ChevronRight, Sparkles } from 'lucide-react';
+import { Calendar, Clock, BookOpen, ChevronRight, Sparkles, Edit3 } from 'lucide-react';
 import api from '../utils/api';
 import clsx from 'clsx';
-
-interface TemplateTask {
-  taskId: string;
-  taskName: string;
-  subject: string;
-  startTime: string;
-  endTime: string;
-}
-
-interface TemplateDay {
-  _id: string;
-  day: string;
-  tasks: TemplateTask[];
-}
+import type { TemplateDay, TemplateTask } from '../types';
+import EditTimetableModal from '../components/EditTimetableModal';
 
 const daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
@@ -42,6 +30,7 @@ const Timetable = () => {
   const [templates, setTemplates] = useState<TemplateDay[]>([]);
   const [selectedDay, setSelectedDay] = useState('Monday');
   const [loading, setLoading] = useState(true);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 
   useEffect(() => {
     fetchTemplates();
@@ -97,13 +86,22 @@ const Timetable = () => {
       {currentTemplate && (
         <div className="bg-white rounded-3xl p-6 shadow-sm border border-slate-200 mb-6">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
-            <div>
-              <h2 className="text-xl font-black text-slate-900">
-                {currentTemplate.day}'s Timetable
-              </h2>
-              <p className="text-xs text-slate-500 font-medium mt-0.5">
-                Total Activities: {currentTemplate.tasks.length}
-              </p>
+            <div className="flex items-center gap-3">
+              <div>
+                <h2 className="text-xl font-black text-slate-900">
+                  {currentTemplate.day}'s Timetable
+                </h2>
+                <p className="text-xs text-slate-500 font-medium mt-0.5">
+                  Total Activities: {currentTemplate.tasks.length}
+                </p>
+              </div>
+              <button 
+                onClick={() => setIsEditModalOpen(true)}
+                className="ml-2 p-2 rounded-xl text-slate-400 hover:text-blue-600 hover:bg-blue-50 border border-transparent hover:border-blue-200 transition-all flex items-center justify-center shrink-0"
+                title="Edit Timetable"
+              >
+                <Edit3 size={18} />
+              </button>
             </div>
 
             {/* Quick stats pills */}
@@ -162,6 +160,13 @@ const Timetable = () => {
           Loading master timetable...
         </div>
       )}
+
+      <EditTimetableModal 
+        isOpen={isEditModalOpen} 
+        onClose={() => setIsEditModalOpen(false)} 
+        template={currentTemplate || null} 
+        onSaved={fetchTemplates} 
+      />
     </div>
   );
 };

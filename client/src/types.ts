@@ -16,3 +16,17 @@ export interface TaskDetail {
 }
 
 export type Task = TaskDetail;
+
+export interface TemplateTask {
+  taskId: string;
+  taskName: string;
+  subject: string;
+  startTime: string;
+  endTime: string;
+}
+
+export interface TemplateDay {
+  _id: string;
+  day: string;
+  tasks: TemplateTask[];
+}
