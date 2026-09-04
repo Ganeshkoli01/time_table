@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
-import { Download, Upload, Shield, User, RefreshCw, FileText, CheckCircle2, AlertCircle } from 'lucide-react';
+import { Download, Upload, Shield, User, RefreshCw, FileText, CheckCircle2, AlertCircle, Palette } from 'lucide-react';
 import api from '../utils/api';
+import { ThemeToggle } from '../components/ThemeToggle';
 
 const Settings = () => {
   const [exporting, setExporting] = useState(false);
@@ -97,10 +98,10 @@ const Settings = () => {
   return (
     <div className="p-4 md:p-8 max-w-4xl mx-auto w-full">
       <header className="mb-6">
-        <h1 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">
+        <h1 className="text-2xl md:text-3xl font-black text-slate-900 dark:text-white tracking-tight">
           ⚙️ Settings & Data Backup
         </h1>
-        <p className="text-sm font-semibold text-slate-600 mt-1">
+        <p className="text-sm font-semibold text-slate-600 dark:text-slate-400 mt-1">
           Export your preparation history, restore backups, and manage your account.
         </p>
       </header>
@@ -110,8 +111,8 @@ const Settings = () => {
         <div
           className={`mb-6 p-4 rounded-2xl flex items-center gap-2 text-sm font-bold border ${
             message.type === 'success'
-              ? 'bg-emerald-50 text-emerald-800 border-emerald-200'
-              : 'bg-rose-50 text-rose-800 border-rose-200'
+              ? 'bg-emerald-50 dark:bg-emerald-500/10 text-emerald-800 dark:text-emerald-400 border-emerald-200 dark:border-emerald-500/20'
+              : 'bg-rose-50 dark:bg-rose-500/10 text-rose-800 dark:text-rose-400 border-rose-200 dark:border-rose-500/20'
           }`}
         >
           {message.type === 'success' ? <CheckCircle2 size={18} /> : <AlertCircle size={18} />}
@@ -120,27 +121,38 @@ const Settings = () => {
       )}
 
       {/* User Profile Card */}
-      <div className="bg-white rounded-3xl p-6 shadow-sm border border-slate-200 mb-6 flex items-center justify-between">
+      <div className="bg-white dark:bg-slate-800 rounded-3xl p-6 shadow-sm border border-slate-200 dark:border-slate-700 mb-6 flex items-center justify-between transition-colors">
         <div className="flex items-center gap-4">
-          <div className="w-12 h-12 rounded-2xl bg-blue-100 text-blue-700 flex items-center justify-center font-black text-lg">
+          <div className="w-12 h-12 rounded-2xl bg-blue-100 dark:bg-blue-500/20 text-blue-700 dark:text-blue-400 flex items-center justify-center font-black text-lg">
             PK
           </div>
           <div>
-            <h3 className="font-bold text-slate-900">Placement Prep Aspirant</h3>
-            <p className="text-xs text-slate-500 font-medium">Demo User Profile • Local MongoDB</p>
+            <h3 className="font-bold text-slate-900 dark:text-slate-100">Placement Prep Aspirant</h3>
+            <p className="text-xs text-slate-500 dark:text-slate-400 font-medium">Demo User Profile • Local MongoDB</p>
           </div>
         </div>
-        <span className="px-3 py-1 rounded-full text-xs font-bold bg-emerald-100 text-emerald-700 border border-emerald-200">
+        <span className="px-3 py-1 rounded-full text-xs font-bold bg-emerald-100 dark:bg-emerald-500/20 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-500/20">
           Active
         </span>
       </div>
 
+      {/* Theme Preferences */}
+      <div className="bg-white dark:bg-slate-800 rounded-3xl p-6 md:p-8 shadow-sm border border-slate-200 dark:border-slate-700 mb-6 transition-colors">
+        <h2 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-1 flex items-center gap-2">
+          <Palette size={20} className="text-purple-500" /> Theme Preferences
+        </h2>
+        <p className="text-xs text-slate-500 dark:text-slate-400 mb-6">
+          Customize the appearance of the application.
+        </p>
+        <ThemeToggle />
+      </div>
+
       {/* Data Export & Backup Card (Requirement 19) */}
-      <div className="bg-white rounded-3xl p-6 md:p-8 shadow-sm border border-slate-200 mb-6">
-        <h2 className="text-lg font-bold text-slate-900 mb-1">
+      <div className="bg-white dark:bg-slate-800 rounded-3xl p-6 md:p-8 shadow-sm border border-slate-200 dark:border-slate-700 mb-6 transition-colors">
+        <h2 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-1">
           💾 Backup & Data Export
         </h2>
-        <p className="text-xs text-slate-500 mb-6">
+        <p className="text-xs text-slate-500 dark:text-slate-400 mb-6">
           Download your complete history so you never lose your placement preparation tracking data.
         </p>
 
@@ -148,28 +160,28 @@ const Settings = () => {
           <button
             onClick={handleExportJSON}
             disabled={exporting}
-            className="flex items-center justify-center gap-2 p-4 rounded-2xl border-2 border-slate-200 hover:border-blue-500 hover:bg-blue-50/50 text-slate-800 font-bold text-sm transition-all"
+            className="flex items-center justify-center gap-2 p-4 rounded-2xl border-2 border-slate-200 dark:border-slate-700 hover:border-blue-500 dark:hover:border-blue-400 hover:bg-blue-50/50 dark:hover:bg-blue-900/20 text-slate-800 dark:text-slate-200 font-bold text-sm transition-all"
           >
-            <Download size={18} className="text-blue-600" />
+            <Download size={18} className="text-blue-600 dark:text-blue-400" />
             <span>{exporting ? 'Exporting...' : 'Export Data (JSON)'}</span>
           </button>
 
           <button
             onClick={handleExportCSV}
             disabled={exporting}
-            className="flex items-center justify-center gap-2 p-4 rounded-2xl border-2 border-slate-200 hover:border-emerald-500 hover:bg-emerald-50/50 text-slate-800 font-bold text-sm transition-all"
+            className="flex items-center justify-center gap-2 p-4 rounded-2xl border-2 border-slate-200 dark:border-slate-700 hover:border-emerald-500 dark:hover:border-emerald-400 hover:bg-emerald-50/50 dark:hover:bg-emerald-900/20 text-slate-800 dark:text-slate-200 font-bold text-sm transition-all"
           >
-            <FileText size={18} className="text-emerald-600" />
+            <FileText size={18} className="text-emerald-600 dark:text-emerald-400" />
             <span>{exporting ? 'Exporting...' : 'Export Data (CSV)'}</span>
           </button>
         </div>
 
         {/* Import section */}
-        <div className="border-t border-slate-100 pt-6">
-          <h3 className="text-sm font-bold text-slate-900 mb-1">
+        <div className="border-t border-slate-100 dark:border-slate-700 pt-6">
+          <h3 className="text-sm font-bold text-slate-900 dark:text-slate-100 mb-1">
             📥 Restore from Backup
           </h3>
-          <p className="text-xs text-slate-500 mb-4">
+          <p className="text-xs text-slate-500 dark:text-slate-400 mb-4">
             Upload a previously exported JSON backup file to restore task statuses.
           </p>
 
@@ -184,9 +196,9 @@ const Settings = () => {
           <button
             onClick={() => fileInputRef.current?.click()}
             disabled={importing}
-            className="flex items-center gap-2 px-5 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-800 rounded-2xl font-bold text-xs transition-colors"
+            className="flex items-center gap-2 px-5 py-2.5 bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 text-slate-800 dark:text-slate-200 rounded-2xl font-bold text-xs transition-colors"
           >
-            <Upload size={16} className="text-slate-600" />
+            <Upload size={16} className="text-slate-600 dark:text-slate-400" />
             <span>{importing ? 'Importing...' : 'Choose JSON Backup File'}</span>
           </button>
         </div>

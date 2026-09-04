@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { ThemeProvider } from './contexts/ThemeContext';
 import Navigation from './components/Navigation';
 import Dashboard from './pages/Dashboard';
 import Timetable from './pages/Timetable';
@@ -9,9 +10,10 @@ import Settings from './pages/Settings';
 
 function App() {
   return (
-    <BrowserRouter>
-      <div className="flex h-screen bg-slate-50 text-slate-900 overflow-hidden font-sans antialiased">
-        {/* Sidebar for desktop */}
+    <ThemeProvider>
+      <BrowserRouter>
+        <div className="flex h-screen bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-slate-50 overflow-hidden font-sans antialiased transition-colors duration-200">
+          {/* Sidebar for desktop */}
         <div className="hidden md:flex shrink-0">
           <Navigation />
         </div>
@@ -45,7 +47,8 @@ function App() {
           <Navigation mobile />
         </div>
       </div>
-    </BrowserRouter>
+      </BrowserRouter>
+    </ThemeProvider>
   );
 }
 

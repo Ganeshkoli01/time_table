@@ -40,13 +40,13 @@ const Streak = () => {
   return (
     <div className="p-4 md:p-8 max-w-4xl mx-auto w-full">
       <header className="mb-6">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-50 border border-orange-200 text-orange-800 text-xs font-bold mb-2">
-          <Flame size={14} className="text-orange-600 fill-orange-500" /> Consistency Tracker
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-50 dark:bg-orange-500/10 border border-orange-200 dark:border-orange-500/20 text-orange-800 dark:text-orange-400 text-xs font-bold mb-2">
+          <Flame size={14} className="text-orange-600 dark:text-orange-500 fill-orange-500" /> Consistency Tracker
         </div>
-        <h1 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">
+        <h1 className="text-2xl md:text-3xl font-black text-slate-900 dark:text-white tracking-tight">
           🔥 Consistency & Daily Streaks
         </h1>
-        <p className="text-sm font-semibold text-slate-600 mt-1">
+        <p className="text-sm font-semibold text-slate-600 dark:text-slate-400 mt-1">
           Complete at least 70% of each day's tasks to maintain your streak.
         </p>
       </header>
@@ -89,7 +89,7 @@ const Streak = () => {
 
       {/* Streak Milestones */}
       <div className="space-y-4 mb-8">
-        <h2 className="text-lg font-bold text-slate-900">
+        <h2 className="text-lg font-bold text-slate-900 dark:text-white">
           🏆 Streak Milestones
         </h2>
 
@@ -103,29 +103,29 @@ const Streak = () => {
                 className={clsx(
                   "p-5 rounded-3xl border transition-all flex items-start gap-4",
                   isAchieved
-                    ? "bg-white border-emerald-300 shadow-sm"
-                    : "bg-slate-50 border-slate-200 opacity-70"
+                    ? "bg-white dark:bg-slate-800 border-emerald-300 dark:border-emerald-700/50 shadow-sm"
+                    : "bg-slate-50 dark:bg-slate-800/50 border-slate-200 dark:border-slate-700 opacity-70"
                 )}
               >
                 <div
                   className={clsx(
                     "p-3 rounded-2xl",
-                    isAchieved ? "bg-emerald-100 text-emerald-700" : "bg-slate-200 text-slate-400"
+                    isAchieved ? "bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-400" : "bg-slate-200 dark:bg-slate-700 text-slate-400 dark:text-slate-500"
                   )}
                 >
                   <Award size={24} />
                 </div>
                 <div>
                   <div className="flex items-center gap-2">
-                    <h3 className="font-bold text-slate-900">{m.title}</h3>
+                    <h3 className="font-bold text-slate-900 dark:text-slate-200">{m.title}</h3>
                     {isAchieved && (
-                      <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-700">
+                      <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-400">
                         Unlocked
                       </span>
                     )}
                   </div>
-                  <p className="text-xs text-slate-500 mt-1">{m.desc}</p>
-                  <div className="text-xs font-semibold text-slate-600 mt-2">
+                  <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">{m.desc}</p>
+                  <div className="text-xs font-semibold text-slate-600 dark:text-slate-500 mt-2">
                     Requirement: {m.days} days streak
                   </div>
                 </div>
@@ -136,13 +136,13 @@ const Streak = () => {
       </div>
 
       {/* Motivational Advice Banner */}
-      <div className="bg-blue-50 border border-blue-200 rounded-3xl p-6 flex items-center gap-4">
-        <div className="p-3 bg-blue-100 text-blue-700 rounded-2xl shrink-0">
+      <div className="bg-blue-50 dark:bg-blue-900/10 border border-blue-200 dark:border-blue-500/20 rounded-3xl p-6 flex items-center gap-4 transition-colors">
+        <div className="p-3 bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-400 rounded-2xl shrink-0">
           <Zap size={24} />
         </div>
         <div>
-          <h4 className="font-bold text-blue-900 text-sm">Pro Tip for Consistency</h4>
-          <p className="text-xs text-blue-800/80 mt-1 leading-relaxed">
+          <h4 className="font-bold text-blue-900 dark:text-blue-300 text-sm">Pro Tip for Consistency</h4>
+          <p className="text-xs text-blue-800/80 dark:text-blue-400/80 mt-1 leading-relaxed">
             "Consistency is more important than studying 12 hours one day and nothing the next day. Small daily wins compound into placement offers!"
           </p>
         </div>

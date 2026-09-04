@@ -27,30 +27,30 @@ const subjectMeta: { [key: string]: { icon: string; bg: string; text: string; ba
   'Aptitude': {
     icon: '📚',
     bg: 'bg-amber-500',
-    text: 'text-amber-800',
+    text: 'text-amber-800 dark:text-amber-400',
     bar: 'bg-amber-500',
-    lightBg: 'bg-amber-100'
+    lightBg: 'bg-amber-100 dark:bg-amber-900/40'
   },
   'English Communication': {
     icon: '🗣',
     bg: 'bg-emerald-500',
-    text: 'text-emerald-800',
+    text: 'text-emerald-800 dark:text-emerald-400',
     bar: 'bg-emerald-500',
-    lightBg: 'bg-emerald-100'
+    lightBg: 'bg-emerald-100 dark:bg-emerald-900/40'
   },
   'Web Development': {
     icon: '💻',
     bg: 'bg-sky-500',
-    text: 'text-sky-800',
+    text: 'text-sky-800 dark:text-sky-400',
     bar: 'bg-sky-500',
-    lightBg: 'bg-sky-100'
+    lightBg: 'bg-sky-100 dark:bg-sky-900/40'
   },
   'Data Analytics': {
     icon: '📊',
     bg: 'bg-purple-500',
-    text: 'text-purple-800',
+    text: 'text-purple-800 dark:text-purple-400',
     bar: 'bg-purple-500',
-    lightBg: 'bg-purple-100'
+    lightBg: 'bg-purple-100 dark:bg-purple-900/40'
   }
 };
 
@@ -85,13 +85,13 @@ const Progress = () => {
   return (
     <div className="p-4 md:p-8 max-w-4xl mx-auto w-full">
       <header className="mb-6">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-blue-800 text-xs font-bold mb-2">
-          <TrendingUp size={14} className="text-blue-600" /> Weekly Subject Metrics
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 dark:bg-blue-500/10 border border-blue-200 dark:border-blue-500/20 text-blue-800 dark:text-blue-400 text-xs font-bold mb-2">
+          <TrendingUp size={14} className="text-blue-600 dark:text-blue-400" /> Weekly Subject Metrics
         </div>
-        <h1 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">
+        <h1 className="text-2xl md:text-3xl font-black text-slate-900 dark:text-white tracking-tight">
           📊 Subject-Wise & Weekly Progress
         </h1>
-        <p className="text-sm font-semibold text-slate-600 mt-1">
+        <p className="text-sm font-semibold text-slate-600 dark:text-slate-400 mt-1">
           Week: {displayRange}
         </p>
       </header>
@@ -135,7 +135,7 @@ const Progress = () => {
 
       {/* Subject-Wise Progress Cards (Requirement 8) */}
       <div className="space-y-4">
-        <h2 className="text-lg font-bold text-slate-900 mb-2">
+        <h2 className="text-lg font-bold text-slate-900 dark:text-white mb-2">
           Main Placement Subjects
         </h2>
 
@@ -158,7 +158,7 @@ const Progress = () => {
               return (
                 <div
                   key={subKey}
-                  className="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm hover:shadow-md transition-all flex flex-col justify-between"
+                  className="bg-white dark:bg-slate-800 rounded-3xl p-6 border border-slate-200 dark:border-slate-700 shadow-sm hover:shadow-md transition-all flex flex-col justify-between"
                 >
                   <div>
                     <div className="flex items-center justify-between mb-3">
@@ -168,7 +168,7 @@ const Progress = () => {
                           {subKey}
                         </h3>
                       </div>
-                      <span className="text-2xl font-black text-slate-900">
+                      <span className="text-2xl font-black text-slate-900 dark:text-white">
                         {sub.completionPercentage}%
                       </span>
                     </div>
@@ -183,18 +183,18 @@ const Progress = () => {
                   </div>
 
                   {/* Hours breakdown */}
-                  <div className="grid grid-cols-3 gap-2 bg-slate-50 p-3 rounded-2xl border border-slate-100 text-center">
+                  <div className="grid grid-cols-3 gap-2 bg-slate-50 dark:bg-slate-900/50 p-3 rounded-2xl border border-slate-100 dark:border-slate-700 text-center">
                     <div>
-                      <div className="text-[10px] uppercase font-bold text-slate-400">Target</div>
-                      <div className="text-sm font-black text-slate-800">{sub.targetHours} hrs</div>
+                      <div className="text-[10px] uppercase font-bold text-slate-400 dark:text-slate-500">Target</div>
+                      <div className="text-sm font-black text-slate-800 dark:text-slate-200">{sub.targetHours} hrs</div>
                     </div>
-                    <div className="border-x border-slate-200">
-                      <div className="text-[10px] uppercase font-bold text-slate-400">Completed</div>
-                      <div className="text-sm font-black text-emerald-600">{sub.completedHours} hrs</div>
+                    <div className="border-x border-slate-200 dark:border-slate-700">
+                      <div className="text-[10px] uppercase font-bold text-slate-400 dark:text-slate-500">Completed</div>
+                      <div className="text-sm font-black text-emerald-600 dark:text-emerald-400">{sub.completedHours} hrs</div>
                     </div>
                     <div>
-                      <div className="text-[10px] uppercase font-bold text-slate-400">Pending</div>
-                      <div className="text-sm font-black text-rose-500">{sub.pendingHours} hrs</div>
+                      <div className="text-[10px] uppercase font-bold text-slate-400 dark:text-slate-500">Pending</div>
+                      <div className="text-sm font-black text-rose-500 dark:text-rose-400">{sub.pendingHours} hrs</div>
                     </div>
                   </div>
                 </div>
@@ -202,7 +202,7 @@ const Progress = () => {
             })}
           </div>
         ) : (
-          <div className="text-center py-12 bg-white rounded-2xl border border-slate-200 border-dashed text-slate-400 font-medium">
+          <div className="text-center py-12 bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 border-dashed text-slate-400 font-medium transition-colors">
             No progress recorded yet for this week.
           </div>
         )}

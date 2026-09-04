@@ -96,20 +96,20 @@ const History = () => {
     <div className="p-4 md:p-8 max-w-4xl mx-auto w-full">
       <header className="mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-blue-800 text-xs font-bold mb-2">
-            <CalendarIcon size={14} className="text-blue-600" /> Historical Performance
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 dark:bg-blue-500/10 border border-blue-200 dark:border-blue-500/20 text-blue-800 dark:text-blue-400 text-xs font-bold mb-2">
+            <CalendarIcon size={14} className="text-blue-600 dark:text-blue-400" /> Historical Performance
           </div>
-          <h1 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">
+          <h1 className="text-2xl md:text-3xl font-black text-slate-900 dark:text-white tracking-tight">
             📜 History & Calendar View
           </h1>
-          <p className="text-sm font-semibold text-slate-600 mt-1">
+          <p className="text-sm font-semibold text-slate-600 dark:text-slate-400 mt-1">
             Pick any past date to inspect or update your permanent records.
           </p>
         </div>
 
         {/* Direct Date Picker input */}
-        <div className="flex items-center gap-2 bg-white px-3 py-2 rounded-2xl border border-slate-200 shadow-xs">
-          <span className="text-xs font-bold text-slate-500">Select Date:</span>
+        <div className="flex items-center gap-2 bg-white dark:bg-slate-800 px-3 py-2 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-xs transition-colors">
+          <span className="text-xs font-bold text-slate-500 dark:text-slate-400">Select Date:</span>
           <input
             type="date"
             max={format(new Date(), 'yyyy-MM-dd')}
@@ -119,14 +119,14 @@ const History = () => {
                 setSelectedDate(parseISO(e.target.value));
               }
             }}
-            className="text-xs font-bold text-slate-800 bg-transparent focus:outline-none cursor-pointer"
+            className="text-xs font-bold text-slate-800 dark:text-slate-200 bg-transparent focus:outline-none cursor-pointer [color-scheme:light] dark:[color-scheme:dark]"
           />
         </div>
       </header>
 
       {/* Calendar Color Legend */}
-      <div className="flex flex-wrap items-center gap-4 bg-white px-4 py-2.5 rounded-2xl border border-slate-200 mb-6 text-xs font-semibold text-slate-600">
-        <span className="text-slate-400 font-bold uppercase text-[10px]">Calendar Legend:</span>
+      <div className="flex flex-wrap items-center gap-4 bg-white dark:bg-slate-800 px-4 py-2.5 rounded-2xl border border-slate-200 dark:border-slate-700 mb-6 text-xs font-semibold text-slate-600 dark:text-slate-400 transition-colors">
+        <span className="text-slate-400 dark:text-slate-500 font-bold uppercase text-[10px]">Calendar Legend:</span>
         <div className="flex items-center gap-1.5">
           <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 inline-block" />
           <span>80-100% Excellent</span>
@@ -142,22 +142,22 @@ const History = () => {
       </div>
 
       {/* Interactive 14-Day Calendar Strip */}
-      <div className="bg-slate-100 rounded-3xl p-3 md:p-4 mb-8 border border-slate-200 shadow-inner">
+      <div className="bg-slate-100 dark:bg-slate-800/50 rounded-3xl p-3 md:p-4 mb-8 border border-slate-200 dark:border-slate-700/50 shadow-inner transition-colors">
         <div className="flex items-center justify-between mb-2 px-2">
-          <span className="text-xs font-bold uppercase tracking-wider text-slate-500">
+          <span className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
             Recent Days Calendar
           </span>
           <div className="flex gap-1">
             <button
               onClick={() => setSelectedDate(subDays(selectedDate, 1))}
-              className="p-1.5 rounded-xl bg-white hover:bg-slate-200 text-slate-700 shadow-xs transition-colors"
+              className="p-1.5 rounded-xl bg-white dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-300 shadow-xs transition-colors"
             >
               <ChevronLeft size={16} />
             </button>
             <button
               disabled={format(selectedDate, 'yyyy-MM-dd') === format(new Date(), 'yyyy-MM-dd')}
               onClick={() => setSelectedDate(addDays(selectedDate, 1))}
-              className="p-1.5 rounded-xl bg-white hover:bg-slate-200 text-slate-700 shadow-xs transition-colors disabled:opacity-40"
+              className="p-1.5 rounded-xl bg-white dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-300 shadow-xs transition-colors disabled:opacity-40"
             >
               <ChevronRight size={16} />
             </button>
@@ -178,7 +178,7 @@ const History = () => {
                   "flex flex-col items-center justify-center p-2.5 min-w-[62px] rounded-2xl transition-all shadow-xs",
                   isSelected
                     ? "bg-blue-600 text-white shadow-md scale-105"
-                    : "bg-white text-slate-700 hover:bg-slate-50 border border-slate-200"
+                    : "bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700"
                 )}
               >
                 <span className="text-[10px] font-bold uppercase mb-0.5">
@@ -195,11 +195,11 @@ const History = () => {
       </div>
 
       {/* Selected Day Stats Card (Requirement 5) */}
-      <div className="bg-white rounded-3xl p-6 shadow-sm border border-slate-200 mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div className="bg-white dark:bg-slate-800 rounded-3xl p-6 shadow-sm border border-slate-200 dark:border-slate-700 mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4 transition-colors">
         <div>
-          <h2 className="text-xl font-bold text-slate-900">{displayDate}</h2>
-          <div className="flex items-center gap-3 mt-1 text-xs font-semibold text-slate-500">
-            <span>Total Tasks: <strong className="text-slate-800">{totalCount}</strong></span>
+          <h2 className="text-xl font-bold text-slate-900 dark:text-white">{displayDate}</h2>
+          <div className="flex items-center gap-3 mt-1 text-xs font-semibold text-slate-500 dark:text-slate-400">
+            <span>Total Tasks: <strong className="text-slate-800 dark:text-slate-200">{totalCount}</strong></span>
             <span>•</span>
             <span>Completed: <strong className="text-emerald-600">{completedCount}</strong></span>
             <span>•</span>
@@ -241,7 +241,7 @@ const History = () => {
             />
           ))
         ) : (
-          <div className="text-center py-14 bg-white rounded-3xl border border-slate-200 border-dashed text-slate-400 font-medium">
+          <div className="text-center py-14 bg-white dark:bg-slate-800 rounded-3xl border border-slate-200 dark:border-slate-700 border-dashed text-slate-400 font-medium transition-colors">
             No records found for this date.
           </div>
         )}

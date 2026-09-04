@@ -99,17 +99,17 @@ const Dashboard = () => {
       {/* Header */}
       <header className="mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div className="flex items-start gap-4">
-          <div className="hidden sm:block w-16 h-16 rounded-2xl overflow-hidden shadow-md shrink-0 border border-slate-100 bg-white p-1">
+          <div className="hidden sm:block w-16 h-16 rounded-2xl overflow-hidden shadow-md shrink-0 border border-slate-100 dark:border-slate-700 bg-white dark:bg-slate-800 p-1">
             <img src="/logo.png?v=2" alt="Placement Preparation Tracker Logo" className="w-full h-full object-contain" />
           </div>
           <div>
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-blue-800 text-xs font-bold mb-2">
-              <Sparkles size={14} className="text-blue-600" /> Daily Tracker
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 dark:bg-blue-500/10 border border-blue-200 dark:border-blue-500/20 text-blue-800 dark:text-blue-400 text-xs font-bold mb-2">
+              <Sparkles size={14} className="text-blue-600 dark:text-blue-400" /> Daily Tracker
             </div>
-            <h1 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">
+            <h1 className="text-2xl md:text-3xl font-black text-slate-900 dark:text-white tracking-tight">
               🎯 Placement Preparation Tracker
             </h1>
-            <p className="text-sm font-semibold text-slate-600 mt-1">
+            <p className="text-sm font-semibold text-slate-600 dark:text-slate-400 mt-1">
               {displayDate}
             </p>
           </div>
@@ -124,42 +124,42 @@ const Dashboard = () => {
       </header>
 
       {/* Progress Card */}
-      <div className="bg-white rounded-3xl p-6 md:p-7 shadow-sm border border-slate-200/80 mb-8 relative overflow-hidden">
+      <div className="bg-white dark:bg-slate-800 rounded-3xl p-6 md:p-7 shadow-sm border border-slate-200/80 dark:border-slate-700 mb-8 relative overflow-hidden transition-colors">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-4">
           <div>
-            <span className="text-xs font-bold tracking-wider uppercase text-slate-400">
+            <span className="text-xs font-bold tracking-wider uppercase text-slate-400 dark:text-slate-500">
               Today's Progress
             </span>
             <div className="flex items-baseline gap-3 mt-1">
-              <h2 className="text-4xl md:text-5xl font-black text-slate-900">
+              <h2 className="text-4xl md:text-5xl font-black text-slate-900 dark:text-white">
                 {percentage}%
               </h2>
-              <span className="text-sm font-bold text-blue-600 bg-blue-50 px-3 py-1 rounded-full border border-blue-100">
+              <span className="text-sm font-bold text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-500/10 px-3 py-1 rounded-full border border-blue-100 dark:border-blue-500/20">
                 {motivationMsg}
               </span>
             </div>
           </div>
 
-          <div className="flex gap-4 sm:gap-6 bg-slate-50 px-4 py-3 rounded-2xl border border-slate-100">
+          <div className="flex gap-4 sm:gap-6 bg-slate-50 dark:bg-slate-900 px-4 py-3 rounded-2xl border border-slate-100 dark:border-slate-700">
             <div>
-              <div className="text-[11px] font-bold uppercase text-slate-400">Completed</div>
-              <div className="text-lg font-black text-emerald-600">{completedCount}</div>
+              <div className="text-[11px] font-bold uppercase text-slate-400 dark:text-slate-500">Completed</div>
+              <div className="text-lg font-black text-emerald-600 dark:text-emerald-400">{completedCount}</div>
             </div>
-            <div className="w-px bg-slate-200" />
+            <div className="w-px bg-slate-200 dark:bg-slate-700" />
             <div>
-              <div className="text-[11px] font-bold uppercase text-slate-400">Pending</div>
-              <div className="text-lg font-black text-rose-500">{pendingCount}</div>
+              <div className="text-[11px] font-bold uppercase text-slate-400 dark:text-slate-500">Pending</div>
+              <div className="text-lg font-black text-rose-500 dark:text-rose-400">{pendingCount}</div>
             </div>
-            <div className="w-px bg-slate-200" />
+            <div className="w-px bg-slate-200 dark:bg-slate-700" />
             <div>
-              <div className="text-[11px] font-bold uppercase text-slate-400">Total</div>
-              <div className="text-lg font-black text-slate-700">{totalCount}</div>
+              <div className="text-[11px] font-bold uppercase text-slate-400 dark:text-slate-500">Total</div>
+              <div className="text-lg font-black text-slate-700 dark:text-slate-300">{totalCount}</div>
             </div>
           </div>
         </div>
 
         {/* Progress bar */}
-        <div className="w-full bg-slate-100 rounded-full h-3.5 mb-4 overflow-hidden p-0.5">
+        <div className="w-full bg-slate-100 dark:bg-slate-700 rounded-full h-3.5 mb-4 overflow-hidden p-0.5">
           <div
             className={clsx(
               "h-full rounded-full transition-all duration-700 ease-out",
@@ -170,30 +170,30 @@ const Dashboard = () => {
         </div>
 
         {/* Motivation quote */}
-        <p className="text-xs text-slate-500 text-center font-medium italic border-t border-slate-100 pt-3">
+        <p className="text-xs text-slate-500 dark:text-slate-400 text-center font-medium italic border-t border-slate-100 dark:border-slate-700 pt-3">
           "Consistency is more important than studying 12 hours one day and nothing the next day."
         </p>
       </div>
 
       {/* Missed Tasks Alert Section (Requirement 11) */}
       {missedTasks.length > 0 && (
-        <div className="mb-8 bg-rose-50 border border-rose-200 rounded-2xl p-4 md:p-5">
-          <div className="flex items-center gap-2 text-rose-800 font-bold mb-2">
-            <AlertTriangle size={18} className="text-rose-600" />
+        <div className="mb-8 bg-rose-50 dark:bg-rose-500/10 border border-rose-200 dark:border-rose-500/20 rounded-2xl p-4 md:p-5 transition-colors">
+          <div className="flex items-center gap-2 text-rose-800 dark:text-rose-400 font-bold mb-2">
+            <AlertTriangle size={18} className="text-rose-600 dark:text-rose-500" />
             <span>Missed Tasks Alert ({missedTasks.length})</span>
           </div>
-          <p className="text-xs text-rose-700 mb-3">
+          <p className="text-xs text-rose-700 dark:text-rose-300 mb-3">
             These tasks were scheduled earlier or on previous days and are still marked pending. Review and complete them!
           </p>
           <div className="space-y-2">
             {missedTasks.slice(0, 3).map(mt => (
               <div
                 key={mt._id}
-                className="bg-white/90 border border-rose-200 rounded-xl p-3 flex items-center justify-between gap-3 text-xs"
+                className="bg-white/90 dark:bg-slate-800/90 border border-rose-200 dark:border-rose-500/20 rounded-xl p-3 flex items-center justify-between gap-3 text-xs"
               >
                 <div>
-                  <span className="font-bold text-slate-800">❌ {mt.taskName}</span>
-                  <span className="text-slate-500 ml-2">
+                  <span className="font-bold text-slate-800 dark:text-slate-200">❌ {mt.taskName}</span>
+                  <span className="text-slate-500 dark:text-slate-400 ml-2">
                     ({mt.subject} • {mt.date} {mt.startTime})
                   </span>
                 </div>
@@ -206,7 +206,7 @@ const Dashboard = () => {
               </div>
             ))}
             {missedTasks.length > 3 && (
-              <p className="text-[11px] text-rose-600 text-right font-semibold">
+              <p className="text-[11px] text-rose-600 dark:text-rose-400 text-right font-semibold">
                 + {missedTasks.length - 3} more missed tasks
               </p>
             )}
@@ -217,18 +217,18 @@ const Dashboard = () => {
       {/* Task List Header & Filter Tabs */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
         <div>
-          <h2 className="text-lg font-bold text-slate-900">Today's Timeline</h2>
-          <p className="text-xs text-slate-500">
+          <h2 className="text-lg font-bold text-slate-900 dark:text-white">Today's Timeline</h2>
+          <p className="text-xs text-slate-500 dark:text-slate-400">
             Green = Completed • Light Red = Pending. Click any task to edit notes.
           </p>
         </div>
 
-        <div className="inline-flex bg-slate-100 p-1 rounded-xl border border-slate-200 text-xs font-semibold text-slate-600 self-start sm:self-auto">
+        <div className="inline-flex bg-slate-100 dark:bg-slate-800 p-1 rounded-xl border border-slate-200 dark:border-slate-700 text-xs font-semibold text-slate-600 dark:text-slate-400 self-start sm:self-auto transition-colors">
           <button
             onClick={() => setFilter('all')}
             className={clsx(
               "px-3 py-1 rounded-lg transition-all",
-              filter === 'all' ? "bg-white text-slate-900 shadow-xs font-bold" : "hover:text-slate-900"
+              filter === 'all' ? "bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-xs font-bold" : "hover:text-slate-900 dark:hover:text-slate-200"
             )}
           >
             All ({totalCount})
@@ -237,7 +237,7 @@ const Dashboard = () => {
             onClick={() => setFilter('pending')}
             className={clsx(
               "px-3 py-1 rounded-lg transition-all",
-              filter === 'pending' ? "bg-white text-rose-700 shadow-xs font-bold" : "hover:text-slate-900"
+              filter === 'pending' ? "bg-white dark:bg-slate-700 text-rose-700 dark:text-rose-400 shadow-xs font-bold" : "hover:text-slate-900 dark:hover:text-slate-200"
             )}
           >
             Pending ({pendingCount})
@@ -246,7 +246,7 @@ const Dashboard = () => {
             onClick={() => setFilter('completed')}
             className={clsx(
               "px-3 py-1 rounded-lg transition-all",
-              filter === 'completed' ? "bg-white text-emerald-700 shadow-xs font-bold" : "hover:text-slate-900"
+              filter === 'completed' ? "bg-white dark:bg-slate-700 text-emerald-700 dark:text-emerald-400 shadow-xs font-bold" : "hover:text-slate-900 dark:hover:text-slate-200"
             )}
           >
             Completed ({completedCount})
@@ -270,7 +270,7 @@ const Dashboard = () => {
             />
           ))
         ) : (
-          <div className="text-center py-12 bg-white rounded-2xl border border-slate-200 border-dashed text-slate-400 font-medium">
+          <div className="text-center py-12 bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 border-dashed text-slate-400 font-medium transition-colors">
             No tasks found in this view.
           </div>
         )}
