@@ -13,6 +13,10 @@ const Navigation: React.FC<NavigationProps> = ({ mobile }) => {
 
   useEffect(() => {
     fetchStreak();
+
+    const handleUpdate = () => fetchStreak();
+    window.addEventListener('streakUpdated', handleUpdate);
+    return () => window.removeEventListener('streakUpdated', handleUpdate);
   }, []);
 
   const fetchStreak = async () => {

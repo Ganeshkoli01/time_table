@@ -58,6 +58,8 @@ const Dashboard = () => {
     try {
       await api.post(`/tasks/${id}/complete`);
       fetchMissedTasks();
+      // Notify sidebar to check for streak updates
+      window.dispatchEvent(new Event('streakUpdated'));
     } catch (error) {
       console.error('Error toggling task:', error);
       fetchTasks();

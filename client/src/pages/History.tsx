@@ -64,6 +64,8 @@ const History = () => {
     try {
       await api.post(`/tasks/${id}/complete`);
       fetchHistoryData();
+      // Notify sidebar to check for streak updates
+      window.dispatchEvent(new Event('streakUpdated'));
     } catch (error) {
       console.error('Error toggling task:', error);
       fetchTasksForDate(dateStr);
