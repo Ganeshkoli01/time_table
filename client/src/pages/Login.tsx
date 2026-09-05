@@ -33,8 +33,13 @@ const Login = () => {
     <div className="min-h-screen flex items-center justify-center bg-slate-50 dark:bg-slate-900 p-4">
       <div className="max-w-md w-full space-y-8 bg-white dark:bg-slate-800 p-8 rounded-2xl shadow-xl border border-slate-100 dark:border-slate-700">
         <div className="text-center">
-          <div className="mx-auto w-20 h-20 mb-6 flex items-center justify-center">
+          <div className="mx-auto w-20 h-20 mb-2 flex items-center justify-center">
             <img src="/logo.png?v=2" alt="Logo" className="w-full h-full object-contain rounded-2xl shadow-md" />
+          </div>
+          <div className="mb-6 flex justify-center">
+            <span className="text-5xl text-slate-800 dark:text-slate-200" style={{ fontFamily: "'Caveat', cursive", transform: "rotate(-2deg)" }}>
+              GK
+            </span>
           </div>
           <h2 className="text-3xl font-extrabold text-slate-900 dark:text-white">Welcome back</h2>
           <p className="mt-2 text-sm text-slate-600 dark:text-slate-400">
