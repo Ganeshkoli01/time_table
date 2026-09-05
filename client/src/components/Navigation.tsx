@@ -157,7 +157,7 @@ const Navigation: React.FC<NavigationProps> = ({ mobile }) => {
         <div className="pt-2 border-t border-slate-200 dark:border-slate-800">
           <div className="flex items-center gap-3 px-2 py-2">
             <div className="w-10 h-10 rounded-full bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400 flex items-center justify-center shrink-0 font-bold shadow-inner">
-              {user?.name?.charAt(0).toUpperCase() || <User size={20} />}
+              {user?.name?.charAt(0)?.toUpperCase() || <User size={20} />}
             </div>
             <div className="flex-1 min-w-0">
               <p className="text-sm font-bold text-slate-900 dark:text-slate-200 truncate">
