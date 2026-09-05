@@ -100,7 +100,7 @@ const Dashboard = () => {
       <header className="mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div className="flex items-start gap-4">
           <div className="hidden sm:block w-16 h-16 rounded-2xl overflow-hidden shadow-md shrink-0 border border-slate-100 dark:border-slate-700 bg-white dark:bg-slate-800 p-1">
-            <img src="/logo.png?v=2" alt="Placement Preparation Tracker Logo" className="w-full h-full object-contain" />
+            <img src="/logo.png?v=2" alt="Placement Preparation Tracker Logo" className="w-full h-full object-contain rounded-xl" />
           </div>
           <div>
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 dark:bg-blue-500/10 border border-blue-200 dark:border-blue-500/20 text-blue-800 dark:text-blue-400 text-xs font-bold mb-2">

@@ -97,7 +97,7 @@ const Navigation: React.FC<NavigationProps> = ({ mobile }) => {
           <img
             src="/logo.png?v=2"
             alt="Placement Preparation Tracker Logo"
-            className="w-full h-full object-contain"
+            className="w-full h-full object-contain rounded-xl"
           />
         </div>
         <div>
